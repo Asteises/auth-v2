@@ -10,6 +10,7 @@ import ru.asteises.authv2.repo.RoleStorage;
 
 import javax.management.relation.RoleNotFoundException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,13 +24,25 @@ public class RoleService {
         return RoleMapper.INSTANCE.map(newRole);
     }
 
-    public RoleDto getById(Long roleId) throws RoleNotFoundException {
-        Role role = roleStorage.getRoleById(roleId)
+    public RoleDto getById(String roleId) throws RoleNotFoundException {
+        Role role = roleStorage.getRoleById(UUID.fromString(roleId))
                 .orElseThrow(() -> new RoleNotFoundException("Role not found"));
         return RoleMapper.INSTANCE.map(role);
+    }
+
+    public RoleDto getByName(String roleName) throws RoleNotFoundException {
+        Role role = roleStorage.getRoleByName(roleName)
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        return RoleMapper.INSTANCE.map(role);
+    }
+
+    public Role getRoleUser() throws RoleNotFoundException {
+        return roleStorage.getRoleByName("ROLE_USER")
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
     }
 
     public List<RoleDto> getAll() {
         return RoleMapper.INSTANCE.map(roleStorage.findAll());
     }
+
 }

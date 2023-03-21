@@ -3,6 +3,9 @@ package ru.asteises.authv2.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Collection;
+import java.util.UUID;
+
 @Entity
 @Getter
 @Setter
@@ -13,10 +16,12 @@ import lombok.*;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "role_name")
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Collection<User> users;
 }

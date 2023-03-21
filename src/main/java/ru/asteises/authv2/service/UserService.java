@@ -8,6 +8,7 @@ import ru.asteises.authv2.model.dto.UserRegDto;
 import ru.asteises.authv2.model.entity.User;
 import ru.asteises.authv2.repo.UserStorage;
 
+import javax.management.relation.RoleNotFoundException;
 import java.util.List;
 
 @Service
@@ -15,9 +16,10 @@ import java.util.List;
 public class UserService {
 
     private final UserStorage userStorage;
+    private final RoleService roleService;
 
-    public UserDto registration(UserRegDto userRegDto) {
-        User user = UserMapper.INSTANCE.map(userRegDto);
+    public UserDto registration(UserRegDto userRegDto) throws RoleNotFoundException {
+        User user = UserMapper.INSTANCE.map(userRegDto, roleService);
         user = userStorage.save(user);
         return UserMapper.INSTANCE.map(user);
     }
