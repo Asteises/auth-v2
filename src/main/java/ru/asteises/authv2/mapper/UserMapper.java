@@ -1,19 +1,29 @@
 package ru.asteises.authv2.mapper;
 
+import org.mapstruct.Context;
+import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import ru.asteises.authv2.model.dto.UserDto;
 import ru.asteises.authv2.model.dto.UserRegDto;
 import ru.asteises.authv2.model.entity.User;
+import ru.asteises.authv2.service.RoleService;
 
+import javax.management.relation.RoleNotFoundException;
+import java.util.Collections;
 import java.util.List;
 
-@Mapper
+@Mapper(componentModel = "spring",
+        injectionStrategy = InjectionStrategy.FIELD,
+        imports = {Collections.class},
+        uses = {RoleService.class})
 public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    User map(UserRegDto userRegDto);
+    @Mapping(target = "roles", expression = "java(Collections.singletonList(roleService.getRoleUser()))")
+    User map(UserRegDto userRegDto, @Context RoleService roleService) throws RoleNotFoundException;
 
     UserDto map(User user);
 

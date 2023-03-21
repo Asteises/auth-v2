@@ -30,7 +30,19 @@ public class RoleService {
         return RoleMapper.INSTANCE.map(role);
     }
 
+    public RoleDto getByName(String roleName) throws RoleNotFoundException {
+        Role role = roleStorage.getRoleByName(roleName)
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+        return RoleMapper.INSTANCE.map(role);
+    }
+
+    public Role getRoleUser() throws RoleNotFoundException {
+        return roleStorage.getRoleByName("ROLE_USER")
+                .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+    }
+
     public List<RoleDto> getAll() {
         return RoleMapper.INSTANCE.map(roleStorage.findAll());
     }
+
 }

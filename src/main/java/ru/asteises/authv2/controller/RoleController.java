@@ -32,6 +32,11 @@ public class RoleController {
         return ResponseEntity.ok(roleService.getById(roleId));
     }
 
+    @GetMapping("/{roleName}")
+    public ResponseEntity<RoleDto> getByName(@PathVariable String roleName) throws RoleNotFoundException {
+        return ResponseEntity.ok(roleService.getByName(roleName));
+    }
+
     @GetMapping("/all")
     public List<RoleDto> getAll() {
         return roleService.getAll();

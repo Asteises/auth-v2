@@ -11,4 +11,5 @@ import java.util.UUID;
 public interface RoleStorage extends JpaRepository<Role, UUID> {
 
     Optional<Role> getRoleById(UUID id);
+    Optional<Role> getRoleByName(String name);
 }

@@ -7,6 +7,7 @@ import ru.asteises.authv2.model.dto.UserDto;
 import ru.asteises.authv2.model.dto.UserRegDto;
 import ru.asteises.authv2.service.UserService;
 
+import javax.management.relation.RoleNotFoundException;
 import java.util.List;
 
 @RestController
@@ -17,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/registration")
-    public ResponseEntity<UserDto> registration(@RequestBody UserRegDto userRegDto) {
+    public ResponseEntity<UserDto> registration(@RequestBody UserRegDto userRegDto) throws RoleNotFoundException {
         return ResponseEntity.ok(userService.registration(userRegDto));
     }
 
