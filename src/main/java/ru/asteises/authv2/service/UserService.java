@@ -10,6 +10,7 @@ import ru.asteises.authv2.repo.UserStorage;
 
 import javax.management.relation.RoleNotFoundException;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +29,7 @@ public class UserService {
         return userStorage.getUserByEmail(email).orElseThrow();
     }
 
-    public UserDto getUserBy(Long userId) {
+    public UserDto getUserBy(UUID userId) {
         User user = userStorage.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         return UserMapper.INSTANCE.map(user);

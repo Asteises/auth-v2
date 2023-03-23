@@ -9,6 +9,7 @@ import ru.asteises.authv2.service.UserService;
 
 import javax.management.relation.RoleNotFoundException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/get_by_id/{userId}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long userId) {
+    public ResponseEntity<UserDto> getUserById(@PathVariable UUID userId) {
         return ResponseEntity.ok(userService.getUserBy(userId));
     }
 

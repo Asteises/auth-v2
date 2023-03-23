@@ -14,10 +14,11 @@ import ru.asteises.authv2.service.RoleService;
 import javax.management.relation.RoleNotFoundException;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Mapper(componentModel = "spring",
         injectionStrategy = InjectionStrategy.FIELD,
-        imports = {Collections.class},
+        imports = {UUID.class, Collections.class},
         uses = {RoleService.class})
 public interface UserMapper {
 
@@ -25,6 +26,7 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
+    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
     @Mapping(target = "roles", expression = "java(Collections.singletonList(roleService.getRoleUser()))")
     @Mapping(target = "password", expression = "java(encoder.encode(userRegDto.getPassword()))")
     User map(UserRegDto userRegDto, @Context RoleService roleService) throws RoleNotFoundException;
