@@ -1,9 +1,15 @@
 package ru.asteises.authv2.model.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
 import java.util.UUID;
 
 @Entity
@@ -11,9 +17,8 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Table(name = "roles")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @Column(name = "id")
@@ -22,6 +27,8 @@ public class Role {
     @Column(name = "role_name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
+    @Override
+    public String getAuthority() {
+        return getName();
+    }
 }
