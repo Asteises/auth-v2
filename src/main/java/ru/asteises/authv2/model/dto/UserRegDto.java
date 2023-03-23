@@ -9,6 +9,7 @@ import lombok.*;
 @ToString
 public class UserRegDto {
 
-    private String username;
+    private String name;
     private String email;
+    private String password;
 }

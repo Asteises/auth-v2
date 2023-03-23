@@ -37,7 +37,7 @@ public class RoleService {
     }
 
     public Role getRoleUser() throws RoleNotFoundException {
-        return roleStorage.getRoleByName("ROLE_USER")
+        return roleStorage.getRoleByName("USER")
                 .orElseThrow(() -> new RoleNotFoundException("Role not found"));
     }
 

@@ -24,6 +24,10 @@ public class UserService {
         return UserMapper.INSTANCE.map(user);
     }
 
+    public User getUserForSecurity(String email) {
+        return userStorage.getUserByEmail(email).orElseThrow();
+    }
+
     public UserDto getUserBy(Long userId) {
         User user = userStorage.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
