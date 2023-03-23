@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import ru.asteises.authv2.securityConfig.userdetails.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -33,8 +34,9 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(
                         authHttp -> {
                             authHttp.requestMatchers("/").permitAll();
-                            authHttp.requestMatchers("/api/test/**").permitAll();
-                            authHttp.requestMatchers("/api/user/**").permitAll();
+                            authHttp.requestMatchers("/api/user/registration").permitAll();
+                            authHttp.requestMatchers("/api/user/").hasAuthority("ADMIN");
+                            authHttp.requestMatchers("/api/user/all").hasAuthority("ADMIN");
                             authHttp.requestMatchers("/api/role/**").hasAuthority("ADMIN");
                         }
                 )

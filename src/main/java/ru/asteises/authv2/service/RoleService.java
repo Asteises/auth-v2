@@ -18,9 +18,12 @@ public class RoleService {
 
     private final RoleStorage roleStorage;
 
+    /**
+     * id генерируется в маппере.
+     */
     public RoleDto add(RoleRegDto roleRegDto) {
         Role newRole = RoleMapper.INSTANCE.map(roleRegDto);
-        newRole = roleStorage.save(newRole);
+        roleStorage.save(newRole);
         return RoleMapper.INSTANCE.map(newRole);
     }
 

@@ -19,9 +19,12 @@ public class UserService {
     private final UserStorage userStorage;
     private final RoleService roleService;
 
+    /**
+     * id генерируется в маппере.
+     */
     public UserDto registration(UserRegDto userRegDto) throws RoleNotFoundException {
         User user = UserMapper.INSTANCE.map(userRegDto, roleService);
-        user = userStorage.save(user);
+        userStorage.save(user);
         return UserMapper.INSTANCE.map(user);
     }
 

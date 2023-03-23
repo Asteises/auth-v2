@@ -23,7 +23,7 @@ public class UserController {
         return ResponseEntity.ok(userService.registration(userRegDto));
     }
 
-    @GetMapping("/get_by_id/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable UUID userId) {
         return ResponseEntity.ok(userService.getUserBy(userId));
     }

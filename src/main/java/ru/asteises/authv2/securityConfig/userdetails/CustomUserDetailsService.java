@@ -1,4 +1,4 @@
-package ru.asteises.authv2.securityConfig;
+package ru.asteises.authv2.securityConfig.userdetails;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +15,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userService.getUserForSecurity(username);
+        return new CustomUserDetails(userService.getUserForSecurity(username));
     }
 }
