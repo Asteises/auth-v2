@@ -31,6 +31,7 @@ public interface UserMapper {
     @Mapping(target = "password", expression = "java(encoder.encode(userRegDto.getPassword()))")
     User map(UserRegDto userRegDto, @Context RoleService roleService) throws RoleNotFoundException;
 
+    @Mapping(target = "username", source = "name")
     UserDto map(User user);
 
     List<UserDto> map(List<User> users);
