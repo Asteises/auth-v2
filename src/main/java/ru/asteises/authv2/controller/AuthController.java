@@ -19,5 +19,6 @@ package ru.asteises.authv2.controller;
 // todo Не могу настроить проект с telegram ботом... Все перепробовал, должно работать,
 //  но нет... То есть по факту проект запускается, но обмена данными не происходит.
 
+
 public class AuthController {
 }
