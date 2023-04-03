@@ -150,9 +150,13 @@
 
     <build>
         <plugins>
+            <!-- Соберет проект в Docker -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>asteises/auth-v2:${version}</imageName>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
