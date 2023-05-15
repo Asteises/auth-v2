@@ -1,0 +1,34 @@
+version: 3
+
+services:
+  auth-db:
+    image: postgres:14.6
+    container_name: auth_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=simple-auth-db-v2
+    ports:
+      - 5434:5434
+    command:
+      - postgres -p 5434
+    volumes:
+      - ./auth-db:/var/lib/postgresql/data
+    networks:
+      - auth_v2_network
+    restart: on-failure
+
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: DockerFile
+    container_name: auth_service
+    environment:
+      - DATABASE_HOST=db-picker
+      - DATABASE_PORT=5432
+    ports:
+      - 8080:8080
+    depends_on:
+      - auth-db
+    networks:
+      - auth_v2_network

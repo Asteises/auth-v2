@@ -1,8 +1,16 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/simple-auth-db-v2
-    username: postgres
-    password: postgres
+
+    # localhost
+    #url: jdbc:postgresql://localhost:5432/simple-auth-db-v2
+    #username: postgres
+    #password: postgres
+
+    # docker
+    url: jdbc:postgresql://${DATABASE_HOST}:${DATABASE_PORT}/simple-auth-db-v2
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+
     driver-class-name: org.postgresql.Driver
   sql:
     init:
